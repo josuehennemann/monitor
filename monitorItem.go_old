@@ -1,0 +1,55 @@
+package main
+
+type  tpMonitorItem int
+const(
+	SERVICE tpMonitorItem = iota
+	HARDWARE
+	RESOURCE
+)
+
+type StActionMonitorItem struct{
+	Action string // acao a ser realizada
+	Type int // tipo da acao a ser realizada, enviar email, push, ligacao, executar comando, etc...
+	AfterAction int //tempo para realizar a proxima acao, caso exista, tempo em segundos
+	BeforeAction int //tempo antes de executar a acao
+}
+
+const(
+	ACT_SEND_EMAIL = iota
+	ACT_SEND_PUSH
+	ACT_MAKE_CALL
+	ACT_EXEC_COMMAND
+)
+
+type  StMonitorItem struct{
+	Type	tpMonitorItem	//type of monitor
+	Interval	int //interval of time monitor(time in seconds)
+	ActionType	[]StActionMonitorItem  
+	Host string
+	Name string //nome do item a ser monitorado
+	Template bool // flag que indica se é apenas um template
+	Location StLocation// localizacao, ex: server001, datacenter,
+	Country StCountry  //pais
+	Province StProvince //pais
+	City StCity
+}
+type StIdxName struct{
+	Idx int
+	Name string
+}
+type StLocation struct{
+	StIdxName
+}
+type StCountry struct{
+	StIdxName
+}
+type StProvince struct{
+	Country int
+	StIdxName
+}
+type StCity struct{
+	Province int
+	StIdxName
+}
+
+func Save

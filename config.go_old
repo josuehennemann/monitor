@@ -1,0 +1,81 @@
+package main
+
+import (
+	"./conf"
+	"strconv"
+)
+
+type StConfig struct {
+	httpListen        string
+	httpsListen       string
+	pathData          string
+	pathLib           string
+	logFilename       string
+	logAccessFilename string
+	logLevel          string
+	isDev             bool
+}
+
+func NewConfig(filename string) *StConfig {
+	c := &StConfig{}
+	c.read(filename)
+	return c
+}
+
+func (c *StConfig) read(filename string) {
+	cf, err := conf.ReadConfigFile(filename)
+	if err == nil {
+		// Endereco para escutar http
+		c.httpListen, _ = cf.GetString("default", "Listen")
+		// Endereco para escutar http
+		c.httpsListen, _ = cf.GetString("default", "HttpsListen")
+		// Diretorio para armazenar arquivos da base
+		c.pathData, _ = cf.GetString("default", "PathData")
+		// Diretorio para armazenar arquivos da base
+		c.pathLib, _ = cf.GetString("default", "PathLib")
+		// Arquivo de log
+		c.logFilename, _ = cf.GetString("default", "LogFile")
+
+		// Arquivo de log access
+		c.logAccessFilename, _ = cf.GetString("default", "LogAccessFile")
+		// Nivel de log
+		c.logLevel, _ = cf.GetString("default", "ErrorReporting")
+
+		//Define o ambiente se é dev ou nao
+		sAux, _ := cf.GetString("default", "IsDev")
+		c.isDev, _ = strconv.ParseBool(sAux)
+	}
+	c.defaultValues()
+
+}
+
+func (c *StConfig) defaultValues() {
+
+	//if c.httpListen == "" {
+		c.httpListen = ":80"
+	//}
+
+	if c.httpsListen == "" {
+		c.httpsListen = "aqui.vem.url:443"
+	}
+
+	if c.pathLib == "" {
+		c.pathLib = "/var/lib/dinamize/Dinamize-Passport-Sprinta/"
+	}
+	c.pathLib = ""
+	if c.pathData == "" {
+		c.pathData = "/var/data/dinamize/Dinamize-Passport-Sprinta/"
+	}
+	if c.logFilename == "" {
+		c.logFilename = "/var/log/dinamize/Dinamize-Passport-Sprinta-Info.log"
+	}
+
+	if c.logAccessFilename == "" {
+		c.logAccessFilename = "/var/log/dinamize/Dinamize-Passport-Sprinta-Access.log"
+	}
+
+	if c.logLevel == "" {
+		c.logLevel = "E_PRODUCTION"
+	}
+
+}

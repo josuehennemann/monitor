@@ -1,0 +1,48 @@
+SO:
+Linux
+
+Estrutura:
+    Server - Client
+Tipos de aviso:
+    E-mail
+    SMS
+    Push
+    Ligaçao
+
+Nivel de alerta:
+    Baixo
+    Médio
+    Critico
+
+Açao a ser realizada:
+    Executar um comando
+    Enviar um aviso de falha
+    Enviar aviso de ok
+
+Tipo de monitoramento:
+    Recurso do servidor
+    Serviço
+    Executar um comando (Ex: leitura de um arquivo)
+    
+Tempo de historico dos dados:
+    Online: 30 dias
+    Arquivado: 24 meses
+
+Considerar GeoLocalizaçao dos monitoramento?
+
+=========================================================
+
+Templates de monitoramento
+Nivel de acesso de usuários
+
+Monitoramento basico
+Descobrir: 
+    OS e versao
+    Versao do kernal
+    HD(qtd)
+    Memoria(qtd)
+    CPU(qtd - nome)
+    Placa de rede (qtd e qtd de ips)
+
+
+
